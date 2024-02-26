@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Класс узла дерева с переменным числом потомков
+class TreeNode<T> {
+    T data;
+    List<TreeNode<T>> children;
+
+    public TreeNode(T data) {
+        this.data = data;
+        this.children = new ArrayList<>();
+    }
+
+    // Метод для добавления потомка к узлу
+    public void addChild(TreeNode<T> child) {
+        this.children.add(child);
+    }
+}
+
+// Класс реализации дерева с переменным числом потомков
+class Tree<T> {
+    private TreeNode<T> root;
+
+    // Конструктор
+    public Tree(T data) {
+        this.root = new TreeNode<>(data);
+    }
+
+    // Метод для получения корня дерева
+    public TreeNode<T> getRoot() {
+        return root;
+    }
+}
+
+// Пример использования дерева с переменным числом потомков
+public class Main {
+    public static void main(String[] args) {
+        // Создание дерева
+        Tree<String> tree = new Tree<>("Root");
+
+        // Получение корня
+        TreeNode<String> root = tree.getRoot();
+
+        // Добавление потомков к корню
+        TreeNode<String> child1 = new TreeNode<>("Child1");
+        TreeNode<String> child2 = new TreeNode<>("Child2");
+        TreeNode<String> child3 = new TreeNode<>("Child3");
+
+        root.addChild(child1);
+        root.addChild(child2);
+        root.addChild(child3);
+
+        // Добавление потомков к одному из потомков
+        TreeNode<String> child4 = new TreeNode<>("Child4");
+        TreeNode<String> child5 = new TreeNode<>("Child5");
+
+        child2.addChild(child4);
+        child2.addChild(child5);
+
+        // Вывод структуры дерева
+        printTreeStructure(root, 0);
+    }
+
+    // Рекурсивный метод для вывода структуры дерева
+    private static void printTreeStructure(TreeNode<String> node, int depth) {
+        StringBuilder indentation = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            indentation.append("  ");
+        }
+
+        System.out.println(indentation.toString() + node.data);
+
+        for (TreeNode<String> child : node.children) {
+            printTreeStructure(child, depth + 1);
+        }
+    }
+}
