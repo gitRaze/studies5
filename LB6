@@ -1,0 +1,71 @@
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+// Класс реализации множества
+class CustomSet<T> {
+    private Set<T> set;
+
+    // Конструктор
+    public CustomSet() {
+        this.set = new HashSet<>();
+    }
+
+    // Метод для добавления элемента в множество
+    public void add(T element) {
+        set.add(element);
+    }
+
+    // Метод для удаления элемента из множества
+    public void remove(T element) {
+        set.remove(element);
+    }
+
+    // Метод для проверки наличия элемента в множестве
+    public boolean contains(T element) {
+        return set.contains(element);
+    }
+
+    // Метод для получения размера множества
+    public int size() {
+        return set.size();
+    }
+
+    // Метод для отображения содержимого множества
+    public void display() {
+        Iterator<T> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Пример использования множества
+public class Main {
+    public static void main(String[] args) {
+        CustomSet<String> customSet = new CustomSet<>();
+
+        // Добавление элементов в множество
+        customSet.add("Apple");
+        customSet.add("Banana");
+        customSet.add("Orange");
+
+        // Отображение содержимого множества
+        System.out.print("Set: ");
+        customSet.display();
+
+        // Проверка наличия элемента в множестве
+        System.out.println("Contains 'Banana': " + customSet.contains("Banana"));
+
+        // Удаление элемента из множества
+        customSet.remove("Apple");
+
+        // Отображение содержимого множества после удаления
+        System.out.print("Set after removal: ");
+        customSet.display();
+
+        // Получение размера множества
+        System.out.println("Size of set: " + customSet.size());
+    }
+}
