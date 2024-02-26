@@ -1,0 +1,68 @@
+import java.util.EmptyStackException;
+
+// Класс узла стека
+class StackNode<T> {
+    T data;
+    StackNode<T> next;
+
+    public StackNode(T data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// Класс реализации стека
+class Stack<T> {
+    private StackNode<T> top;
+
+    // Проверка на пустоту стека
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    // Добавление элемента на вершину стека
+    public void push(T data) {
+        StackNode<T> newNode = new StackNode<>(data);
+        newNode.next = top;
+        top = newNode;
+    }
+
+    // Удаление элемента с вершины стека и возврат его значения
+    public T pop() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T data = top.data;
+        top = top.next;
+        return data;
+    }
+
+    // Получение значения элемента на вершине стека без удаления
+    public T peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return top.data;
+    }
+}
+
+// Пример использования стека
+public class Main {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        // Добавление элементов в стек
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        // Вывод вершины стека без удаления
+        System.out.println("Top of the stack: " + stack.peek());
+
+        // Удаление элемента с вершины стека
+        System.out.println("Popped element: " + stack.pop());
+
+        // Вывод вершины стека после удаления
+        System.out.println("Top of the stack after pop: " + stack.peek());
+    }
+}
