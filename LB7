@@ -1,0 +1,42 @@
+public class BubbleSort {
+    // Метод для сортировки массива методом пузырька
+    public static void bubbleSort(int[] array) {
+        int n = array.length;
+        boolean swapped;
+
+        do {
+            swapped = false;
+            for (int i = 1; i < n; i++) {
+                if (array[i - 1] > array[i]) {
+                    // Обмен значениями, если текущий элемент больше следующего
+                    int temp = array[i - 1];
+                    array[i - 1] = array[i];
+                    array[i] = temp;
+                    swapped = true;
+                }
+            }
+            n--;
+        } while (swapped);
+    }
+
+    // Метод для отображения содержимого массива
+    public static void displayArray(int[] array) {
+        for (int value : array) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+
+    // Пример использования сортировки пузырьком
+    public static void main(String[] args) {
+        int[] array = {64, 34, 25, 12, 22, 11, 90};
+
+        System.out.println("Unsorted Array:");
+        displayArray(array);
+
+        bubbleSort(array);
+
+        System.out.println("Sorted Array:");
+        displayArray(array);
+    }
+}
