@@ -1,0 +1,76 @@
+import java.util.EmptyStackException;
+
+// Класс узла очереди
+class QueueNode<T> {
+    T data;
+    QueueNode<T> next;
+
+    public QueueNode(T data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// Класс реализации очереди
+class Queue<T> {
+    private QueueNode<T> front; // Начало очереди
+    private QueueNode<T> rear;  // Конец очереди
+
+    // Проверка на пустоту очереди
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    // Добавление элемента в конец очереди
+    public void enqueue(T data) {
+        QueueNode<T> newNode = new QueueNode<>(data);
+        if (isEmpty()) {
+            front = rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+    }
+
+    // Удаление элемента из начала очереди и возврат его значения
+    public T dequeue() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T data = front.data;
+        front = front.next;
+        if (front == null) {
+            rear = null;
+        }
+        return data;
+    }
+
+    // Получение значения элемента в начале очереди без удаления
+    public T peek() {
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        return front.data;
+    }
+}
+
+// Пример использования очереди
+public class Main {
+    public static void main(String[] args) {
+        Queue<Integer> queue = new Queue<>();
+
+        // Добавление элементов в очередь
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+
+        // Вывод элемента в начале очереди без удаления
+        System.out.println("Front of the queue: " + queue.peek());
+
+        // Удаление элемента из начала очереди
+        System.out.println("Dequeued element: " + queue.dequeue());
+
+        // Вывод элемента в начале очереди после удаления
+        System.out.println("Front of the queue after dequeue: " + queue.peek());
+    }
+}
