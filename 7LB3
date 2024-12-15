@@ -1,0 +1,5 @@
+public class PercentNumber {
+    public static double percent(int a, int b) {
+        return (double)a * b / 100 ;
+    }
+}
