@@ -1,0 +1,434 @@
+package com.company;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Калькулятор");
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200, 220);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        new Okno(frame.getContentPane());//Здесь мы добавляем окно
+    }
+}
+
+ublic class Okno extends JFrame {
+    JButton c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, delenie, umnozhenie, plus, minus, ravno, ochistit, drob, ochistit1, ochistit2;
+    JLabel stroka;
+    JLabel stroka1;
+    JLabel stroka2;
+
+    eOkoshko hren = new eOkoshko();
+    double pervoe;
+    double vtoroe;
+    double ravnu;
+    boolean pl, mi, um, de;
+    boolean chastpervovoChisla;
+    boolean chastVtorovoChisla;
+    boolean dva;
+
+    public Okno(Container container) {
+        container.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+
+        container.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.weightx = 0.5;
+        constraints.gridy = 0;
+        c1 = new JButton("1");
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        container.add(c1, constraints);
+        c2 = new JButton("2");
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        container.add(c2, constraints);
+        c3 = new JButton("3");
+        constraints.gridx = 2;
+        constraints.gridy = 3;
+        container.add(c3, constraints);
+        c4 = new JButton("4");
+        constraints.gridx = 3;
+        constraints.gridy = 3;
+        container.add(c4, constraints);
+        c5 = new JButton("5");
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        container.add(c5, constraints);
+        c6 = new JButton("6");
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+        container.add(c6, constraints);
+        c7 = new JButton("7");
+        constraints.gridx = 2;
+        constraints.gridy = 4;
+        container.add(c7, constraints);
+        c8 = new JButton("8");
+        constraints.gridx = 3;
+        constraints.gridy = 4;
+        container.add(c8, constraints);
+        c9 = new JButton("9");
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        container.add(c9, constraints);
+        c0 = new JButton("0");
+        constraints.gridx = 1;
+        constraints.gridy = 5;
+        container.add(c0, constraints);
+        delenie = new JButton("/");
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        container.add(delenie, constraints);
+        umnozhenie = new JButton("*");
+        constraints.gridx = 3;
+        constraints.gridy = 5;
+        container.add(umnozhenie, constraints);
+        plus = new JButton("+");
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        container.add(plus, constraints);
+        minus = new JButton("-");
+        constraints.gridx = 1;
+        constraints.gridy = 6;
+        container.add(minus, constraints);
+        ravno = new JButton("=");
+        constraints.gridx = 2;
+        constraints.gridy = 6;
+        container.add(ravno, constraints);
+        ochistit = new JButton("c");
+        constraints.gridx = 3;
+        constraints.gridy = 6;
+        container.add(ochistit, constraints);
+        stroka = new JLabel("0");
+        constraints.gridwidth = 4;
+        stroka.setVerticalAlignment(SwingConstants.TOP);
+        stroka.setHorizontalAlignment(SwingConstants.RIGHT);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        container.add(stroka, constraints);
+        stroka1 = new JLabel("0");
+        constraints.gridwidth = 4;
+        stroka1.setVerticalAlignment(SwingConstants.TOP);
+        stroka1.setHorizontalAlignment(SwingConstants.RIGHT);
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        container.add(stroka1, constraints);
+        stroka2 = new JLabel("0");
+        constraints.gridwidth = 4;
+        stroka2.setVerticalAlignment(SwingConstants.TOP);
+        stroka2.setHorizontalAlignment(SwingConstants.RIGHT);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        container.add(stroka2, constraints);
+        drob = new JButton(".");
+        constraints.gridwidth = 2;
+        constraints.gridx = 0;
+        constraints.gridy = 7;
+        container.add(drob, constraints);
+        ochistit1 = new JButton("c1");
+        constraints.gridwidth = 1;
+        constraints.gridx = 2;
+        constraints.gridy = 7;
+        container.add(ochistit1, constraints);
+        ochistit2 = new JButton("c2");
+        constraints.gridwidth = 1;
+        constraints.gridx = 3;
+        constraints.gridy = 7;
+        container.add(ochistit2, constraints);
+
+        c1.addActionListener(hren);
+        c2.addActionListener(hren);
+        c3.addActionListener(hren);
+        c4.addActionListener(hren);
+        c5.addActionListener(hren);
+        c6.addActionListener(hren);
+        c7.addActionListener(hren);
+        c8.addActionListener(hren);
+        c9.addActionListener(hren);
+        c0.addActionListener(hren);
+        ochistit.addActionListener(hren);
+        plus.addActionListener(hren);
+        minus.addActionListener(hren);
+        delenie.addActionListener(hren);
+        umnozhenie.addActionListener(hren);
+        ravno.addActionListener(hren);
+        drob.addActionListener(hren);
+        ochistit2.addActionListener(hren);
+        ochistit1.addActionListener(hren);
+        while (true){ //Нужно для того чтобы калькулятор мог перебирать(то есть чтобы как только мы указали действие он сразу выводил значение из-за этого кнопка = может не понадобиться, но мне лень её убирать
+            if (!dva){//часть отсюда кода работает не так как я предпологал, но смысла от этого действия всё равно бы не было
+                ravnu = pervoe;//вот до сюда
+            }else if (dva){
+                vtoroe = Double.parseDouble(stroka1.getText());
+                if (pl) {//эти 4 if выполняют действие =
+                    ravnu = vtoroe + pervoe;
+                } else if (mi) {
+                    ravnu = pervoe - vtoroe;
+                } else if (um) {
+                    ravnu = pervoe * vtoroe;
+                } else if (de) {
+                    ravnu = pervoe / vtoroe;
+                }
+                stroka2.setText(Double.toString(ravnu));
+            }
+            stroka2.setText(Double.toString(ravnu));
+        }
+    }
+
+    public class eOkoshko implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == c1) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("1");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "1";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("1");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "1";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c2) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("2");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "2";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("2");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "2";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c3) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("3");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "3";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("3");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "3";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c4) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("4");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "4";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("4");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "4";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c5) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("5");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "5";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("5");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "5";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c6) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("6");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "6";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("6");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "6";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c7) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("7");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "7";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("7");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "7";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c8) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("8");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "8";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("8");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "8";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c9) {
+                if (!dva && !chastpervovoChisla) {
+                    stroka.setText("9");
+                    chastpervovoChisla = true;
+                } else if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "9";
+                    stroka.setText(dl1);
+                } else if (dva && !chastVtorovoChisla) {
+                    stroka1.setText("9");
+                    chastVtorovoChisla = true;
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "9";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == c0) {
+                if (!dva && chastpervovoChisla) {
+                    String dl1 = (stroka.getText());
+                    dl1 = dl1 + "0";
+                    stroka.setText(dl1);
+                } else if (dva && chastVtorovoChisla) {
+                    String dl2 = (stroka1.getText());
+                    dl2 = dl2 + "0";
+                    stroka1.setText(dl2);
+                }
+            }
+            if (e.getSource() == ochistit) {//этот if очищает весь калькулятор
+                chastpervovoChisla = false;
+                stroka.setText("0");
+                stroka1.setText("0");
+                stroka2.setText("0");
+                dva = false;
+                chastpervovoChisla = false;
+                chastVtorovoChisla = false;
+                ravnu = 0.0;
+                pervoe = 0.0;
+                vtoroe = 0.0;
+            }
+            if (e.getSource() == plus) {//этот if говорит говорит о том что два числа надо сложить и стоит этот if на кнопке плюс(+)
+                pervoe = Double.parseDouble(stroka.getText());
+                dva = true;
+                pl = true;
+                mi = false;
+                um = false;
+                de = false;
+            }
+            if (e.getSource() == minus) {//этот if говорит говорит о том что от первого числа надо вычесть второе и стоит этот if на кнопке минус(-)
+                pervoe = Double.parseDouble(stroka.getText());
+                dva = true;
+                pl = false;
+                mi = true;
+                um = false;
+                de = false;
+            }
+            if (e.getSource() == umnozhenie) {//этот if говорит говорит о том что два числа надо умножить и стоит этот if на кнопке умножить(*)
+                pervoe = Double.parseDouble(stroka.getText());
+                dva = true;
+                pl = false;
+                mi = false;
+                um = true;
+                de = false;
+            }
+            if (e.getSource() == delenie) {//этот if говорит говорит о том что первое число надо делить на второе и стоит этот if на кнопке деления(/)
+                pervoe = Double.parseDouble(stroka.getText());
+                dva = true;
+                pl = false;
+                mi = false;
+                um = false;
+                de = true;
+            }
+            if (e.getSource() == ravno) {
+                vtoroe = Double.parseDouble(stroka1.getText());
+                pervoe = Double.parseDouble(stroka.getText());
+                if (pl) {
+                    ravnu = vtoroe + pervoe;
+                } else if (mi) {
+                    ravnu = pervoe - vtoroe;
+                } else if (um) {
+                    ravnu = pervoe * vtoroe;
+                } else if (de) {
+                    ravnu = pervoe / vtoroe;
+                }
+                stroka2.setText(Double.toString(ravnu));
+            }
+            if(e.getSource()==drob) {//кнопка дроби, просто ставит точку в первой строчке
+                if (!dva) {
+                    String dladrobi = stroka.getText();
+                    dladrobi = dladrobi + ".";
+                    stroka.setText(dladrobi);
+                } else if (dva){//кнопка дроби, просто ставит точку во второй строчке
+                    String dladrobi = stroka1.getText();
+                    dladrobi = dladrobi + ".";
+                    stroka1.setText(dladrobi);
+                }
+            }
+            if (e.getSource()==ochistit2){//очищает вторую строку
+                stroka1.setText("0");
+                dva = true;
+                chastVtorovoChisla = false;
+                ravnu = 0.0;
+                vtoroe = 0.0;
+            }
+            if (e.getSource()==ochistit1){//очищает первую строку
+                chastpervovoChisla = false;
+                stroka.setText("0");
+                dva = false;
+                ravnu = 0.0;
+                pervoe = 0.0;
+            }
+        }
+    }
+}
