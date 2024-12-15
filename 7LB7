@@ -1,0 +1,11 @@
+        String fileFirst = "/home/user/1.txt";//here is your files
+        String fileSecond = "/home/user/2.txt";
+        String fileResult = "/home/user/1-exclude-2.txt";
+        try (Stream<String> streamFirst = Files.lines(Paths.get(fileFirst)); 
+                Stream<String> streamSecond = Files.lines(Paths.get(fileSecond))) {
+            List<String> list = streamSecond.collect(Collectors.toList());
+            List<String> resultList = streamFirst.filter(line -> !list.contains(line)).collect(Collectors.toList());            
+            Files.write(Paths.get(fileResult), resultList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
