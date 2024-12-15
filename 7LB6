@@ -1,0 +1,13 @@
+public void shuffleArray(int[] cards) {
+	int temp, index;
+	for (int i = 0; < cards.length; i++) {
+	/*Карты с индексами от 0 до i-1 уже были выбраны
+	* (они перемещены в начало массива), поэтому сейчас мы
+	* выбираем случайную карту с индексом, больше или равным i
+	* */
+	index = (int) (Math.random() * (cards.length - i)) + i;
+	temp = cards[i];
+		cards[i] = cards[index];
+		cards[index] = temp;
+	}
+}
